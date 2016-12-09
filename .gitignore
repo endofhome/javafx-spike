@@ -1,0 +1,19 @@
+examples/*
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+#Gradle
+.gradletasknamecache
+.gradle/
+build/
+bin/
+gradle/wrapper/gradle-wrapper.properties
+gradlew.bat
+
+#Project specific
+data/
+src/test/resources/*
+!src/test/resources/README.md
