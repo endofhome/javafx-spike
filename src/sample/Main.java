@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -70,11 +71,6 @@ public class Main extends Application {
         mainMenuTitle.setFill(BLACKBOARD);
         mainMenuGrid.add(mainMenuTitle, 0, 5, 2, 1);
 
-//        Button dummyFocusButton = new Button();
-//        dummyFocusButton.requestFocus();
-//        dummyFocusButton.setVisible(false);
-//        mainMenuGrid.add(dummyFocusButton, 0, 16);
-
         Button mainNewInvoice = new Button();
         mainNewInvoice.setText("New invoice");
         mainNewInvoice.setTextFill(BLACKBOARD);
@@ -123,40 +119,34 @@ public class Main extends Application {
         newInvoiceGrid.add(invoiceSceneTitle, 0, 0, 2, 1);
 
         Label customerSearchLabel = new Label("Search for existing customer:");
-        newInvoiceGrid.add(customerSearchLabel, 0, 1);
+        newInvoiceGrid.add(customerSearchLabel, 0, 10);
 
         TextField customerSearch = new TextField();
-        newInvoiceGrid.add(customerSearch, 1, 1);
+        newInvoiceGrid.add(customerSearch, 1, 10);
 
         Button searchCustomerButton = new Button();
         searchCustomerButton.setText("Search");
         searchCustomerButton.setOnAction(event -> switchScene(fixedScene, invoiceDetailsScene));
-        newInvoiceGrid.add(searchCustomerButton, 2, 1);
+        newInvoiceGrid.add(searchCustomerButton, 2, 10);
 
         Label orLabel = new Label("- OR -");
-        newInvoiceGrid.add(orLabel, 0, 2);
+        GridPane.setColumnSpan(orLabel, 3);
+        GridPane.setHalignment(orLabel, HPos.CENTER);
+        newInvoiceGrid.add(orLabel, 0, 12);
 
         Button newCustomerButton = new Button();
         newCustomerButton.setText("Add new customer");
+        GridPane.setColumnSpan(newCustomerButton, 3);
+        GridPane.setHalignment(newCustomerButton, HPos.CENTER);
         newCustomerButton.setOnAction(event -> switchScene(fixedScene, customerScene));
-        newInvoiceGrid.add(newCustomerButton, 0, 3);
+        newInvoiceGrid.add(newCustomerButton, 0, 14);
 
-//        Label quantity = new Label("Quantity");
-//        newInvoiceGrid.add(quantity, 0, 2);
-//
-//        Label description = new Label("Description");
-//        newInvoiceGrid.add(description, 1, 2);
-//
-//        Label unitPrice = new Label("Unit price");
-//        newInvoiceGrid.add(unitPrice, 2, 2);
-
-//        newInvoiceScene = new Scene(newInvoiceGrid, 500, 700);
         newInvoiceScene = new StackPane(newInvoiceGrid);
 
         Button mainFromInvoice = new Button();
         mainFromInvoice.setText("Main menu");
         mainFromInvoice.setOnAction(event -> switchScene(fixedScene, mainMenuScene));
-        newInvoiceGrid.add(mainFromInvoice, 0, 7);
+        newInvoiceGrid.add(mainFromInvoice, 0, 25);
         invoiceSceneTitle.requestFocus();
 
         //
@@ -175,92 +165,104 @@ public class Main extends Application {
         invoiceDetailsGrid.add(invoiceDetailsTitle, 0, 0, 2, 1);
 
         Label nameLabel = new Label("Name:");
-        invoiceDetailsGrid.add(nameLabel, 1, 2);
+        invoiceDetailsGrid.add(nameLabel, 0, 2);
 
         TextField nameField = new TextField();
-        invoiceDetailsGrid.add(nameField, 1, 3);
+        GridPane.setColumnSpan(nameField, 3);
+        invoiceDetailsGrid.add(nameField, 0, 3);
 
         Label addressOne = new Label("Address (1):");
-        invoiceDetailsGrid.add(addressOne, 1, 4);
+        invoiceDetailsGrid.add(addressOne, 0, 4);
 
         TextField addressField = new TextField();
-        GridPane.setColumnSpan(addressField, 2);
-        invoiceDetailsGrid.add(addressField, 1, 5);
+        GridPane.setColumnSpan(addressField, 4);
+        invoiceDetailsGrid.add(addressField, 0, 5);
 
         Label addressTwo = new Label("Address (2):");
-        invoiceDetailsGrid.add(addressTwo, 1, 6);
+        invoiceDetailsGrid.add(addressTwo, 0, 6);
 
         TextField addressTwoField = new TextField();
-        invoiceDetailsGrid.add(addressTwoField, 1, 7);
+        GridPane.setColumnSpan(addressTwoField, 3);
+        invoiceDetailsGrid.add(addressTwoField, 0, 7);
 
         Label postcodeLabel = new Label("Postcode:");
-        invoiceDetailsGrid.add(postcodeLabel, 2, 6);
+        invoiceDetailsGrid.add(postcodeLabel, 3, 6);
 
         TextField postcodeField = new TextField();
-        invoiceDetailsGrid.add(postcodeField, 2, 7);
+        invoiceDetailsGrid.add(postcodeField, 3, 7);
 
         Label dateLabel = new Label("Date:");
-        invoiceDetailsGrid.add(dateLabel, 4, 2);
+        invoiceDetailsGrid.add(dateLabel, 5, 2);
 
         TextField dateField = new TextField();
-        invoiceDetailsGrid.add(dateField, 4, 3);
+        invoiceDetailsGrid.add(dateField, 5, 3);
 
         Label orderNumberLabel = new Label("Order Number:");
-        invoiceDetailsGrid.add(orderNumberLabel, 4, 4);
+        invoiceDetailsGrid.add(orderNumberLabel, 5, 4);
 
         TextField orderField = new TextField();
-        invoiceDetailsGrid.add(orderField, 4, 5);
+        invoiceDetailsGrid.add(orderField, 5, 5);
 
         Label accountCodeLabel = new Label("Account code:");
-        invoiceDetailsGrid.add(accountCodeLabel, 4, 6);
+        invoiceDetailsGrid.add(accountCodeLabel, 5, 6);
 
         TextField accountCodeField = new TextField();
-        invoiceDetailsGrid.add(accountCodeField, 4, 7);
+        invoiceDetailsGrid.add(accountCodeField, 5, 7);
 
         Label quantity = new Label("Quantity");
         invoiceDetailsGrid.add(quantity, 0, 12);
 
         Label description = new Label("Description");
-        GridPane.setColumnSpan(description, 2);
+        GridPane.setColumnSpan(description, 3);
         invoiceDetailsGrid.add(description, 1, 12);
 
         Label unitPrice = new Label("Unit price");
-        invoiceDetailsGrid.add(unitPrice, 3, 12);
+        invoiceDetailsGrid.add(unitPrice, 4, 12);
 
         Label total = new Label("Total");
-        invoiceDetailsGrid.add(total, 4, 12);
+        invoiceDetailsGrid.add(total, 5, 12);
 
         List<TextField> quantitiyFieldList = new ArrayList<>();
         for (int i = 0; i < 16; i++) {
             quantitiyFieldList.add(new TextField());
+            quantitiyFieldList.get(i).setMaxWidth(75);
             invoiceDetailsGrid.add(quantitiyFieldList.get(i), 0, 13 + i);
         }
 
         List<TextField> descriptionFieldList = new ArrayList<>();
         for (int i = 0; i < 16; i++) {
             descriptionFieldList.add(new TextField());
-            GridPane.setColumnSpan(descriptionFieldList.get(i), 2);
+            descriptionFieldList.get(i).setMinWidth(200);
+            GridPane.setColumnSpan(descriptionFieldList.get(i), 3);
             invoiceDetailsGrid.add(descriptionFieldList.get(i), 1, 13 + i);
         }
 
         List<TextField> unitPriceList = new ArrayList<>();
         for (int i = 0; i < 16; i++) {
             unitPriceList.add(new TextField());
-            invoiceDetailsGrid.add(unitPriceList.get(i), 3, 13 + i);
+            unitPriceList.get(i).setMaxWidth(75);
+            invoiceDetailsGrid.add(unitPriceList.get(i), 4, 13 + i);
         }
 
         List<TextField> totalList = new ArrayList<>();
         for (int i = 0; i < 16; i++) {
             totalList.add(new TextField());
-            invoiceDetailsGrid.add(totalList.get(i), 4, 13 + i);
+            invoiceDetailsGrid.add(totalList.get(i), 5, 13 + i);
         }
+
+        Button mainFromInvoiceDetails = new Button();
+        mainFromInvoiceDetails.setText("Main menu");
+        mainFromInvoiceDetails.setOnAction(event -> switchScene(fixedScene, mainMenuScene));
+        invoiceDetailsGrid.add(mainFromInvoiceDetails, 0, 30);
+        invoiceSceneTitle.requestFocus();
 
         Button invoiceSubmitButton = new Button();
         invoiceSubmitButton.setText("Submit");
         invoiceSubmitButton.setOnAction(event -> System.out.println("INVOICE SUBMITTED!"));
-        invoiceDetailsGrid.add(invoiceSubmitButton, 0, 30);
+        invoiceDetailsGrid.add(invoiceSubmitButton, 2, 30);
 
         ScrollPane invoiceDetailsScroll = new ScrollPane(invoiceDetailsGrid);
+        invoiceDetailsScroll.setFitToWidth(true);
 
         invoiceDetailsScene = new StackPane(invoiceDetailsScroll);
 
@@ -275,7 +277,6 @@ public class Main extends Application {
         addCustomerGrid.setHgap(10);
         addCustomerGrid.setVgap(10);
         addCustomerGrid.setPadding(new Insets(25, 25, 25, 25));
-
 
         Text customerSceneTitle = new Text("New customer");
         customerSceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -311,6 +312,11 @@ public class Main extends Application {
         TextField customerPhoneField = new TextField();
         addCustomerGrid.add(customerPhoneField, 1, 5);
 
+        Button mainFromCustomer = new Button();
+        mainFromCustomer.setText("Main menu");
+        mainFromCustomer.setOnAction(event -> switchScene(fixedScene, mainMenuScene));
+        addCustomerGrid.add(mainFromCustomer, 0, 6);
+
         Button submitCustomerBtn = new Button();
         submitCustomerBtn.setText("Add customer");
         submitCustomerBtn.setOnAction(event -> printCustomerDetails(
@@ -320,12 +326,7 @@ public class Main extends Application {
                 customerPostcodeField,
                 customerPhoneField
         ));
-        addCustomerGrid.add(submitCustomerBtn, 0, 6);
-
-        Button mainFromCustomer = new Button();
-        mainFromCustomer.setText("Main menu");
-        mainFromCustomer.setOnAction(event -> switchScene(fixedScene, mainMenuScene));
-        addCustomerGrid.add(mainFromCustomer, 0, 7);
+        addCustomerGrid.add(submitCustomerBtn, 5, 6);
 
         customerScene = new StackPane(addCustomerGrid);
         //
@@ -395,15 +396,6 @@ public class Main extends Application {
     private void switchScene(Scene scene, StackPane layout) {
         scene.setRoot(layout);
     }
-
-//    private void switchScene(Stage primaryStage) {
-
-    //    }
-//        }
-//            primaryStage.setScene(newInvoiceScene);
-//        } else {
-//            primaryStage.setScene(customerScene);
-//        if (primaryStage.getScene() == newInvoiceScene) {
 
     private String copyrightYears() {
         if (LocalDate.now().getYear() == 2016) {
