@@ -9,6 +9,7 @@ examples/*
 .gradletasknamecache
 .gradle/
 build/
+out/
 bin/
 gradle/wrapper/gradle-wrapper.properties
 gradlew.bat

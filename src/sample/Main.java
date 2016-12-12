@@ -3,16 +3,19 @@ package sample;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
@@ -21,16 +24,17 @@ import java.util.List;
 
 public class Main extends Application {
 
-    private Scene newInvoiceScene;
-    private Scene customerScene;
-    private Scene mainMenuScene;
-    private Scene settingsScene;
-    private Scene invoiceDetailsScene;
+    private StackPane newInvoiceScene;
+    private StackPane mainMenuScene;
+    private StackPane invoiceDetailsScene;
+    private StackPane customerScene;
+    private StackPane settingsScene;
     private static final Color CARBON = Color.valueOf("A9A9A9");
     private static final Color WATERMELON = Color.valueOf("FF3B3F");
     private static final Color GRAIN = Color.valueOf("D7CEC7");
     private static final Color OXBLOOD = Color.valueOf("76323F");
     private static final Color BLACKBOARD = Color.valueOf("565656");
+    private Scene fixedScene;
 
     @Override
     public void start(Stage primaryStage) {
@@ -76,7 +80,7 @@ public class Main extends Application {
         mainNewInvoice.setTextFill(BLACKBOARD);
         mainNewInvoice.setMinWidth(200);
         mainNewInvoice.setStyle("-fx-focus-color: transparent;");
-        mainNewInvoice.setOnAction(event -> primaryStage.setScene(newInvoiceScene));
+        mainNewInvoice.setOnAction(event -> switchScene(fixedScene, newInvoiceScene));
         mainMenuGrid.add(mainNewInvoice, 0, 6);
 
         Button mainNewCustomer = new Button();
@@ -84,7 +88,7 @@ public class Main extends Application {
         mainNewCustomer.setTextFill(BLACKBOARD);
         mainNewCustomer.setMinWidth(200);
         mainNewCustomer.setStyle("-fx-focus-color: transparent;");
-        mainNewCustomer.setOnAction(event -> primaryStage.setScene(customerScene));
+        mainNewCustomer.setOnAction(event -> switchScene(fixedScene, customerScene));
         mainMenuGrid.add(mainNewCustomer, 0, 7);
 
         Button mainSettings = new Button();
@@ -92,14 +96,14 @@ public class Main extends Application {
         mainSettings.setTextFill(BLACKBOARD);
         mainSettings.setMinWidth(200);
         mainSettings.setStyle("-fx-focus-color: transparent;");
-        mainSettings.setOnAction(event -> primaryStage.setScene(settingsScene));
+        mainSettings.setOnAction(event -> switchScene(fixedScene, settingsScene));
         mainMenuGrid.add(mainSettings, 0, 8);
 
         Label copyright = new Label(String.format("© %s  Tom Barnes", copyrightYears()));
         copyright.setTextFill(OXBLOOD);
         mainMenuGrid.add(copyright, 0, 15);
 
-        mainMenuScene = new Scene(mainMenuGrid, 500, 700);
+        mainMenuScene = new StackPane(mainMenuGrid);
         mainMenuScene.getStylesheets().add("sample/javoice.css");
         bannerTitle.requestFocus();
 
@@ -126,7 +130,7 @@ public class Main extends Application {
 
         Button searchCustomerButton = new Button();
         searchCustomerButton.setText("Search");
-        searchCustomerButton.setOnAction(event -> primaryStage.setScene(invoiceDetailsScene));
+        searchCustomerButton.setOnAction(event -> switchScene(fixedScene, invoiceDetailsScene));
         newInvoiceGrid.add(searchCustomerButton, 2, 1);
 
         Label orLabel = new Label("- OR -");
@@ -134,7 +138,7 @@ public class Main extends Application {
 
         Button newCustomerButton = new Button();
         newCustomerButton.setText("Add new customer");
-        newCustomerButton.setOnAction(event -> primaryStage.setScene(customerScene));
+        newCustomerButton.setOnAction(event -> switchScene(fixedScene, customerScene));
         newInvoiceGrid.add(newCustomerButton, 0, 3);
 
 //        Label quantity = new Label("Quantity");
@@ -146,11 +150,12 @@ public class Main extends Application {
 //        Label unitPrice = new Label("Unit price");
 //        newInvoiceGrid.add(unitPrice, 2, 2);
 
-        newInvoiceScene = new Scene(newInvoiceGrid, 500, 700);
+//        newInvoiceScene = new Scene(newInvoiceGrid, 500, 700);
+        newInvoiceScene = new StackPane(newInvoiceGrid);
 
         Button mainFromInvoice = new Button();
         mainFromInvoice.setText("Main menu");
-        mainFromInvoice.setOnAction(event -> primaryStage.setScene(mainMenuScene));
+        mainFromInvoice.setOnAction(event -> switchScene(fixedScene, mainMenuScene));
         newInvoiceGrid.add(mainFromInvoice, 0, 7);
         invoiceSceneTitle.requestFocus();
 
@@ -216,7 +221,7 @@ public class Main extends Application {
         invoiceDetailsGrid.add(quantity, 0, 12);
 
         Label description = new Label("Description");
-        GridPane.setColumnSpan(description, 2);;
+        GridPane.setColumnSpan(description, 2);
         invoiceDetailsGrid.add(description, 1, 12);
 
         Label unitPrice = new Label("Unit price");
@@ -257,7 +262,7 @@ public class Main extends Application {
 
         ScrollPane invoiceDetailsScroll = new ScrollPane(invoiceDetailsGrid);
 
-        invoiceDetailsScene = new Scene(invoiceDetailsScroll, 500, 700);
+        invoiceDetailsScene = new StackPane(invoiceDetailsScroll);
 
         //
         //
@@ -271,7 +276,6 @@ public class Main extends Application {
         addCustomerGrid.setVgap(10);
         addCustomerGrid.setPadding(new Insets(25, 25, 25, 25));
 
-        customerScene = new Scene(addCustomerGrid, 500, 700);
 
         Text customerSceneTitle = new Text("New customer");
         customerSceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -320,9 +324,10 @@ public class Main extends Application {
 
         Button mainFromCustomer = new Button();
         mainFromCustomer.setText("Main menu");
-        mainFromCustomer.setOnAction(event -> primaryStage.setScene(mainMenuScene));
+        mainFromCustomer.setOnAction(event -> switchScene(fixedScene, mainMenuScene));
         addCustomerGrid.add(mainFromCustomer, 0, 7);
 
+        customerScene = new StackPane(addCustomerGrid);
         //
         //
         //
@@ -370,19 +375,25 @@ public class Main extends Application {
 
         Button mainFromSettings = new Button();
         mainFromSettings.setText("Main menu");
-        mainFromSettings.setOnAction(event -> primaryStage.setScene(mainMenuScene));
+        mainFromSettings.setOnAction(event -> switchScene(fixedScene, mainMenuScene));
         settingsGrid.add(mainFromSettings, 0, 8);
 
-        settingsScene = new Scene(settingsGrid, 500, 700);
+        settingsScene = new StackPane(settingsGrid);
 
         //
         //
         // SET THE STAGE...
         //
 
+        fixedScene = new Scene(mainMenuScene);
         primaryStage.setTitle("Javoice");
-        primaryStage.setScene(mainMenuScene);
+        primaryStage.setScene(fixedScene);
+        primaryStage.setMaximized(true);
         primaryStage.show();
+    }
+
+    private void switchScene(Scene scene, StackPane layout) {
+        scene.setRoot(layout);
     }
 
 //    private void switchScene(Stage primaryStage) {
