@@ -37,7 +37,7 @@ public class Main extends Application {
     private static final Color OXBLOOD = Color.valueOf("76323F");
     private static final Color BLACKBOARD = Color.valueOf("565656");
     private Scene fixedScene;
-    private File fakeInvoiceTemplateConfig = new File(String.format("%s/Javoice/Invoices/invoice-template.xls", System.getProperty("user.home")));;
+    private File fakeInvoiceTemplateConfig = new File(String.format("%s/Javoice/Templates/invoice-template.xls", System.getProperty("user.home")));;
     private File fakeInvoiceOutputPathConfig = new File(String.format("%s/Javoice/Invoices", System.getProperty("user.home")));;
     private File fakeSalesLedgerOutputPathConfig = new File(String.format("%s/Javoice/Sales Ledger", System.getProperty("user.home")));;
     private File fakeCustomerDataOutputPathConfig = new File(String.format("%s/Javoice/Customer Data/Customers.xls", System.getProperty("user.home")));;
@@ -350,7 +350,7 @@ public class Main extends Application {
         settingsTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         settingsGrid.add(settingsTitle, 0, 0, 2, 1);
 
-        Label invoiceFileTemplateLabel = new Label("Invoice Template file:");
+        Label invoiceFileTemplateLabel = new Label("Invoice template file:");
         settingsGrid.add(invoiceFileTemplateLabel, 0, 1);
 
         FileChooser invoiceTemplatePath = new FileChooser();
@@ -422,7 +422,7 @@ public class Main extends Application {
 
     private void chooseInvoiceTemplatePath(FileChooser fileChooser, Button buttonToUpdate) {
         fakeInvoiceTemplateConfig = fileChooser.showOpenDialog(fixedScene.getWindow());
-        fileChooser.setInitialDirectory(fakeInvoiceTemplateConfig);
+        fileChooser.setInitialDirectory(new File(fakeInvoiceTemplateConfig.getParent()));
         buttonToUpdate.setText(fakeInvoiceTemplateConfig.toString());
     }
 
@@ -440,7 +440,7 @@ public class Main extends Application {
 
     private void chooseCustomerDataOutputPath(FileChooser fileChooser, Button buttonToUpdate) {
         fakeCustomerDataOutputPathConfig = fileChooser.showOpenDialog(fixedScene.getWindow());
-        fileChooser.setInitialDirectory(fakeCustomerDataOutputPathConfig);
+        fileChooser.setInitialDirectory(new File(fakeCustomerDataOutputPathConfig.getParent()));
         buttonToUpdate.setText(fakeCustomerDataOutputPathConfig.toString());
     }
 
