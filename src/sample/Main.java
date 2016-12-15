@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,9 +15,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Screen;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,10 @@ public class Main extends Application {
     private static final Color OXBLOOD = Color.valueOf("76323F");
     private static final Color BLACKBOARD = Color.valueOf("565656");
     private Scene fixedScene;
+    private File fakeInvoiceTemplateConfig = new File(String.format("%s/Javoice/Invoices", System.getProperty("user.home")));;
+    private File fakeInvoiceOutputPathConfig = new File(String.format("%s/Javoice/Invoices", System.getProperty("user.home")));;
+    private File fakeSalesLedgerOutputPathConfig = new File(String.format("%s/Javoice/Sales Ledger", System.getProperty("user.home")));;
+//    private File fakeInvoiceTemplateConfig4 = new File(String.format("%s/Javoice/Invoices", System.getProperty("user.home")));;
 
     @Override
     public void start(Stage primaryStage) {
@@ -95,9 +99,9 @@ public class Main extends Application {
         mainSettings.setOnAction(event -> switchScene(fixedScene, settingsScene));
         mainMenuGrid.add(mainSettings, 0, 8);
 
-        Label copyright = new Label(String.format("© %s  Tom Barnes", copyrightYears()));
-        copyright.setTextFill(OXBLOOD);
-        mainMenuGrid.add(copyright, 0, 15);
+//        Label copyright = new Label(String.format("© %s  Tom Barnes", copyrightYears()));
+//        copyright.setTextFill(OXBLOOD);
+//        mainMenuGrid.add(copyright, 0, 15);
 
         mainMenuScene = new StackPane(mainMenuGrid);
         mainMenuScene.getStylesheets().add("sample/javoice.css");
@@ -345,25 +349,35 @@ public class Main extends Application {
         settingsTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         settingsGrid.add(settingsTitle, 0, 0, 2, 1);
 
-        Label invoiceFileTemplateLabel = new Label("Invoice Template path:");
+        Label invoiceFileTemplateLabel = new Label("Invoice Template file:");
         settingsGrid.add(invoiceFileTemplateLabel, 0, 1);
 
         TextField invoiceFileTemplatePath = new TextField();
         settingsGrid.add(invoiceFileTemplatePath, 1, 1);
 
-        Label invoiceFileOutputLabel = new Label("Invoice output path:");
+        Label invoiceFileOutputLabel = new Label("Invoice output folder:");
         settingsGrid.add(invoiceFileOutputLabel, 0, 2);
 
-        TextField invoiceFileOutputPath = new TextField();
-        settingsGrid.add(invoiceFileOutputPath, 1, 2);
+        DirectoryChooser invoiceFileOutputPath = new DirectoryChooser();
+        invoiceFileOutputPath.setInitialDirectory(fakeInvoiceOutputPathConfig);
+        File initialDirectory = invoiceFileOutputPath.getInitialDirectory();
+        Button updateInvoiceFileOutputPath = new Button();
+        updateInvoiceFileOutputPath.setText(initialDirectory.toString());
+        updateInvoiceFileOutputPath.setOnAction(event -> chooseInvoiceOutputPath(invoiceFileOutputPath, updateInvoiceFileOutputPath));
+        settingsGrid.add(updateInvoiceFileOutputPath, 1, 2);
 
-        Label salesLedgerOutputLabel = new Label("Sales ledger output path:");
+        Label salesLedgerOutputLabel = new Label("Sales ledger output folder:");
         settingsGrid.add(salesLedgerOutputLabel, 0, 3);
 
-        TextField salesLedgerOutputPath = new TextField();
-        settingsGrid.add(salesLedgerOutputPath, 1, 3);
+        DirectoryChooser salesLedgerOutputPath = new DirectoryChooser();
+        salesLedgerOutputPath.setInitialDirectory(fakeSalesLedgerOutputPathConfig);
+        File initialSalesLedgerDirectory = salesLedgerOutputPath.getInitialDirectory();
+        Button updateSalesLedgerOutputPath = new Button();
+        updateSalesLedgerOutputPath.setText(initialSalesLedgerDirectory.toString());
+        updateSalesLedgerOutputPath.setOnAction(event -> chooseSalesLedgerOutputPath(salesLedgerOutputPath, updateSalesLedgerOutputPath));
+        settingsGrid.add(updateSalesLedgerOutputPath, 1, 3);
 
-        Label customerDataLabel = new Label("Customer data path:");
+        Label customerDataLabel = new Label("Customer data folder:");
         settingsGrid.add(customerDataLabel, 0, 4);
 
         TextField customerDataPath = new TextField();
@@ -391,6 +405,18 @@ public class Main extends Application {
         primaryStage.setScene(fixedScene);
         primaryStage.setMaximized(true);
         primaryStage.show();
+    }
+
+    private void chooseInvoiceOutputPath(DirectoryChooser directoryChooser, Button buttonToUpdate) {
+        fakeInvoiceOutputPathConfig = directoryChooser.showDialog(fixedScene.getWindow());
+        directoryChooser.setInitialDirectory(fakeInvoiceOutputPathConfig);
+        buttonToUpdate.setText(fakeInvoiceOutputPathConfig.toString());
+    }
+
+    private void chooseSalesLedgerOutputPath(DirectoryChooser directoryChooser, Button buttonToUpdate) {
+        fakeSalesLedgerOutputPathConfig = directoryChooser.showDialog(fixedScene.getWindow());
+        directoryChooser.setInitialDirectory(fakeSalesLedgerOutputPathConfig);
+        buttonToUpdate.setText(fakeSalesLedgerOutputPathConfig.toString());
     }
 
     private void switchScene(Scene scene, StackPane layout) {
