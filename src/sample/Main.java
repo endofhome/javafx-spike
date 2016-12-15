@@ -16,6 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -36,10 +37,10 @@ public class Main extends Application {
     private static final Color OXBLOOD = Color.valueOf("76323F");
     private static final Color BLACKBOARD = Color.valueOf("565656");
     private Scene fixedScene;
-    private File fakeInvoiceTemplateConfig = new File(String.format("%s/Javoice/Invoices", System.getProperty("user.home")));;
+    private File fakeInvoiceTemplateConfig = new File(String.format("%s/Javoice/Invoices/invoice-template.xls", System.getProperty("user.home")));;
     private File fakeInvoiceOutputPathConfig = new File(String.format("%s/Javoice/Invoices", System.getProperty("user.home")));;
     private File fakeSalesLedgerOutputPathConfig = new File(String.format("%s/Javoice/Sales Ledger", System.getProperty("user.home")));;
-//    private File fakeInvoiceTemplateConfig4 = new File(String.format("%s/Javoice/Invoices", System.getProperty("user.home")));;
+    private File fakeCustomerDataOutputPathConfig = new File(String.format("%s/Javoice/Customer Data/Customers.xls", System.getProperty("user.home")));;
 
     @Override
     public void start(Stage primaryStage) {
@@ -352,8 +353,14 @@ public class Main extends Application {
         Label invoiceFileTemplateLabel = new Label("Invoice Template file:");
         settingsGrid.add(invoiceFileTemplateLabel, 0, 1);
 
-        TextField invoiceFileTemplatePath = new TextField();
-        settingsGrid.add(invoiceFileTemplatePath, 1, 1);
+        FileChooser invoiceTemplatePath = new FileChooser();
+        File dataDirectory = new File(fakeInvoiceTemplateConfig.getParent());
+        invoiceTemplatePath.setInitialDirectory(dataDirectory);
+        invoiceTemplatePath.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel '97-2003 spreadsheet", "*.xls"));
+        Button updateInvoiceTemplatePath = new Button();
+        updateInvoiceTemplatePath.setText(fakeInvoiceTemplateConfig.toString());
+        updateInvoiceTemplatePath.setOnAction(event -> chooseInvoiceTemplatePath(invoiceTemplatePath, updateInvoiceTemplatePath));
+        settingsGrid.add(updateInvoiceTemplatePath, 1, 1);
 
         Label invoiceFileOutputLabel = new Label("Invoice output folder:");
         settingsGrid.add(invoiceFileOutputLabel, 0, 2);
@@ -377,11 +384,17 @@ public class Main extends Application {
         updateSalesLedgerOutputPath.setOnAction(event -> chooseSalesLedgerOutputPath(salesLedgerOutputPath, updateSalesLedgerOutputPath));
         settingsGrid.add(updateSalesLedgerOutputPath, 1, 3);
 
-        Label customerDataLabel = new Label("Customer data folder:");
+        Label customerDataLabel = new Label("Customer data file:");
         settingsGrid.add(customerDataLabel, 0, 4);
 
-        TextField customerDataPath = new TextField();
-        settingsGrid.add(customerDataPath, 1, 4);
+        FileChooser customerDataOutputPath = new FileChooser();
+        File templateDirectory = new File(fakeCustomerDataOutputPathConfig.getParent());
+        customerDataOutputPath.setInitialDirectory(templateDirectory);
+        customerDataOutputPath.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel '97-2003 spreadsheet", "*.xls"));
+        Button updateCustomerLedgerOutputPath = new Button();
+        updateCustomerLedgerOutputPath.setText(fakeCustomerDataOutputPathConfig.toString());
+        updateCustomerLedgerOutputPath.setOnAction(event -> chooseCustomerDataOutputPath(customerDataOutputPath, updateCustomerLedgerOutputPath));
+        settingsGrid.add(updateCustomerLedgerOutputPath, 1, 4);
 
         Button updateSettings = new Button();
         updateSettings.setText("Update settings");
@@ -407,6 +420,12 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    private void chooseInvoiceTemplatePath(FileChooser fileChooser, Button buttonToUpdate) {
+        fakeInvoiceTemplateConfig = fileChooser.showOpenDialog(fixedScene.getWindow());
+        fileChooser.setInitialDirectory(fakeInvoiceTemplateConfig);
+        buttonToUpdate.setText(fakeInvoiceTemplateConfig.toString());
+    }
+
     private void chooseInvoiceOutputPath(DirectoryChooser directoryChooser, Button buttonToUpdate) {
         fakeInvoiceOutputPathConfig = directoryChooser.showDialog(fixedScene.getWindow());
         directoryChooser.setInitialDirectory(fakeInvoiceOutputPathConfig);
@@ -417,6 +436,12 @@ public class Main extends Application {
         fakeSalesLedgerOutputPathConfig = directoryChooser.showDialog(fixedScene.getWindow());
         directoryChooser.setInitialDirectory(fakeSalesLedgerOutputPathConfig);
         buttonToUpdate.setText(fakeSalesLedgerOutputPathConfig.toString());
+    }
+
+    private void chooseCustomerDataOutputPath(FileChooser fileChooser, Button buttonToUpdate) {
+        fakeCustomerDataOutputPathConfig = fileChooser.showOpenDialog(fixedScene.getWindow());
+        fileChooser.setInitialDirectory(fakeCustomerDataOutputPathConfig);
+        buttonToUpdate.setText(fakeCustomerDataOutputPathConfig.toString());
     }
 
     private void switchScene(Scene scene, StackPane layout) {
