@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class Main extends Application {
     private File fakeInvoiceOutputPathConfig = new File(String.format("%s/Javoice/Invoices", System.getProperty("user.home")));;
     private File fakeSalesLedgerOutputPathConfig = new File(String.format("%s/Javoice/Sales Ledger", System.getProperty("user.home")));;
     private File fakeCustomerDataOutputPathConfig = new File(String.format("%s/Javoice/Customer Data/Customers.xls", System.getProperty("user.home")));;
+    private String fakeOrderNumber = "1053";
 
     @Override
     public void start(Stage primaryStage) {
@@ -159,6 +161,10 @@ public class Main extends Application {
         //
         // INVOICE DETAILS SCENE
         //
+
+        // Fake customer for testing purposes...
+        FakeCustomer fakeCustomer = new FakeCustomer();
+
         GridPane invoiceDetailsGrid = new GridPane();
         invoiceDetailsGrid.setAlignment(Pos.CENTER);
         invoiceDetailsGrid.setHgap(10);
@@ -174,6 +180,7 @@ public class Main extends Application {
 
         TextField nameField = new TextField();
         GridPane.setColumnSpan(nameField, 3);
+        nameField.setText(fakeCustomer.name);
         invoiceDetailsGrid.add(nameField, 0, 3);
 
         Label addressOne = new Label("Address (1):");
@@ -181,6 +188,7 @@ public class Main extends Application {
 
         TextField addressField = new TextField();
         GridPane.setColumnSpan(addressField, 4);
+        addressField.setText(fakeCustomer.addressOne);
         invoiceDetailsGrid.add(addressField, 0, 5);
 
         Label addressTwo = new Label("Address (2):");
@@ -188,30 +196,35 @@ public class Main extends Application {
 
         TextField addressTwoField = new TextField();
         GridPane.setColumnSpan(addressTwoField, 3);
+        addressTwoField.setText(fakeCustomer.addressTwo);
         invoiceDetailsGrid.add(addressTwoField, 0, 7);
 
         Label postcodeLabel = new Label("Postcode:");
         invoiceDetailsGrid.add(postcodeLabel, 3, 6);
 
         TextField postcodeField = new TextField();
+        postcodeField.setText(fakeCustomer.postcode);
         invoiceDetailsGrid.add(postcodeField, 3, 7);
 
         Label dateLabel = new Label("Date:");
         invoiceDetailsGrid.add(dateLabel, 5, 2);
 
         TextField dateField = new TextField();
+        dateField.setText(todaysDate());
         invoiceDetailsGrid.add(dateField, 5, 3);
 
         Label orderNumberLabel = new Label("Order Number:");
         invoiceDetailsGrid.add(orderNumberLabel, 5, 4);
 
         TextField orderField = new TextField();
+        orderField.setText(fakeOrderNumber);
         invoiceDetailsGrid.add(orderField, 5, 5);
 
         Label accountCodeLabel = new Label("Account code:");
         invoiceDetailsGrid.add(accountCodeLabel, 5, 6);
 
         TextField accountCodeField = new TextField();
+        accountCodeField.setText(fakeCustomer.accountCode);
         invoiceDetailsGrid.add(accountCodeField, 5, 7);
 
         Label quantity = new Label("Quantity");
@@ -228,30 +241,33 @@ public class Main extends Application {
         invoiceDetailsGrid.add(total, 5, 12);
 
         List<TextField> quantitiyFieldList = new ArrayList<>();
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i <= 16; i++) {
             quantitiyFieldList.add(new TextField());
             quantitiyFieldList.get(i).setMaxWidth(75);
-            invoiceDetailsGrid.add(quantitiyFieldList.get(i), 0, 13 + i);
         }
 
         List<TextField> descriptionFieldList = new ArrayList<>();
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i <= 16; i++) {
             descriptionFieldList.add(new TextField());
             descriptionFieldList.get(i).setMinWidth(200);
             GridPane.setColumnSpan(descriptionFieldList.get(i), 3);
-            invoiceDetailsGrid.add(descriptionFieldList.get(i), 1, 13 + i);
         }
 
         List<TextField> unitPriceList = new ArrayList<>();
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i <= 16; i++) {
             unitPriceList.add(new TextField());
             unitPriceList.get(i).setMaxWidth(75);
-            invoiceDetailsGrid.add(unitPriceList.get(i), 4, 13 + i);
         }
 
         List<TextField> totalList = new ArrayList<>();
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i <= 16; i++) {
             totalList.add(new TextField());
+        }
+
+        for (int i = 0; i <= 16; i++) {
+            invoiceDetailsGrid.add(quantitiyFieldList.get(i), 0, 13 + i);
+            invoiceDetailsGrid.add(descriptionFieldList.get(i), 1, 13 + i);
+            invoiceDetailsGrid.add(unitPriceList.get(i), 4, 13 + i);
             invoiceDetailsGrid.add(totalList.get(i), 5, 13 + i);
         }
 
@@ -259,7 +275,6 @@ public class Main extends Application {
         mainFromInvoiceDetails.setText("Main menu");
         mainFromInvoiceDetails.setOnAction(event -> switchScene(fixedScene, mainMenuScene));
         invoiceDetailsGrid.add(mainFromInvoiceDetails, 0, 30);
-        invoiceSceneTitle.requestFocus();
 
         Button invoiceSubmitButton = new Button();
         invoiceSubmitButton.setText("Submit");
@@ -270,6 +285,8 @@ public class Main extends Application {
         invoiceDetailsScroll.setFitToWidth(true);
 
         invoiceDetailsScene = new StackPane(invoiceDetailsScroll);
+        // TODO: this doesn't work, for some reason:
+        quantitiyFieldList.get(0).requestFocus();
 
         //
         //
@@ -418,6 +435,12 @@ public class Main extends Application {
         primaryStage.setScene(fixedScene);
         primaryStage.setMaximized(true);
         primaryStage.show();
+    }
+
+    private String todaysDate() {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter ukFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return now.format(ukFormat);
     }
 
     private void chooseInvoiceTemplatePath(FileChooser fileChooser, Button buttonToUpdate) {
