@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -434,6 +435,7 @@ public class Main extends Application {
         primaryStage.setTitle("Javoice");
         primaryStage.setScene(fixedScene);
         primaryStage.setMaximized(true);
+        primaryStage.getIcons().add(new Image("file:resources/icons/javoice_icon.png"));
         primaryStage.show();
     }
 
