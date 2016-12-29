@@ -33,9 +33,6 @@ public class Main extends Application {
     private StackPane invoiceDetailsScene;
     private StackPane customerScene;
     private StackPane settingsScene;
-    private static final Color CARBON = Color.valueOf("A9A9A9");
-    private static final Color WATERMELON = Color.valueOf("FF3B3F");
-    private static final Color GRAIN = Color.valueOf("D7CEC7");
     private static final Color OXBLOOD = Color.valueOf("76323F");
     private static final Color BLACKBOARD = Color.valueOf("565656");
     private Scene fixedScene;
@@ -47,16 +44,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-//        Button btn = new Button();
-//        btn.setText("Click me");
-//        btn.setOnAction(event -> System.out.println("Welcome to Javoice"));
-//        btn.setOnAction(event -> btn.setText(LocalDateTime.now().toString()));
-//
-//        StackPane root = new StackPane();
-//        root.getChildren().add(btn);
-//
-//        Scene buttonTestScene = new Scene(root, 500, 700);
-
         //
         //
         //
@@ -103,9 +90,9 @@ public class Main extends Application {
         mainSettings.setOnAction(event -> switchScene(fixedScene, settingsScene));
         mainMenuGrid.add(mainSettings, 0, 8);
 
-//        Label copyright = new Label(String.format("© %s  Tom Barnes", copyrightYears()));
-//        copyright.setTextFill(OXBLOOD);
-//        mainMenuGrid.add(copyright, 0, 15);
+        Label copyright = new Label(String.format("© %s  Tom Barnes", copyrightYears()));
+        copyright.setTextFill(OXBLOOD);
+        mainMenuGrid.add(copyright, 0, 15);
 
         mainMenuScene = new StackPane(mainMenuGrid);
         mainMenuScene.getStylesheets().add("sample/javoice.css");
@@ -488,15 +475,6 @@ public class Main extends Application {
                 customerPostcodeField.getText(),
                 customerPhoneField.getText()));
     }
-
-//    @Override
-//    public void start(Stage primaryStage) throws Exception{
-//        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-//        primaryStage.setTitle("Javoice");
-//        primaryStage.setScene(new Scene(root, 300, 275));
-//        primaryStage.show();
-//    }
-
 
     public static void main(String[] args) {
         launch(args);
