@@ -31,7 +31,6 @@ public class NewInvoice extends JavoiceScreen implements Observable {
         Button mainMenu = initButton(newInvoiceGrid, "Main menu", event -> notifyObserver(UiController.mainMenuStackPane), 0, 26);
 
         newInvoiceStackPane = new StackPane(newInvoiceGrid);
-        title.requestFocus();
     }
 
     @Override

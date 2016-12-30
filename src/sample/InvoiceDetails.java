@@ -51,10 +51,8 @@ public class InvoiceDetails extends JavoiceScreen implements Observable {
         TextField accountCodeField = initTextField(invoiceDetailsGrid, 1, fakeCustomer.accountCode, 5, 8);
 
         Label quantity = initLabel(invoiceDetailsGrid, "Quantity", 0, 13);
-        initTextField(invoiceDetailsGrid, 3, "Description", 1, 13);
-
+        Label description = initLabel(invoiceDetailsGrid, "Description", 1, 13);
         Label unitPrice = initLabel(invoiceDetailsGrid, "Unit price", 4, 13);
-
         Label total = initLabel(invoiceDetailsGrid, "Total", 5, 13);
 
         List<TextField> quantitiyFieldList = new ArrayList<>();

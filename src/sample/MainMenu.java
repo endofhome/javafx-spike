@@ -41,7 +41,6 @@ public class MainMenu extends JavoiceScreen implements Observable {
 
         mainMenuStackPane = new StackPane(mainMenuGrid);
         mainMenuStackPane.getStylesheets().add("sample/javoice.css");
-        bannerTitle.requestFocus();
     }
 
     private String copyrightYears() {

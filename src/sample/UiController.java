@@ -42,6 +42,7 @@ public class UiController implements Observer {
 
     public void setTheStage(Stage primaryStage) {
         fixedScene = new Scene(mainMenuStackPane);
+        mainMenuStackPane.requestFocus();
         primaryStage.setTitle("Javoice");
         primaryStage.setScene(fixedScene);
         primaryStage.setMaximized(true);
@@ -51,5 +52,6 @@ public class UiController implements Observer {
 
     public void switchScene(StackPane layout) {
         fixedScene.setRoot(layout);
+        layout.requestFocus();
     }
 }
