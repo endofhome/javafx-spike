@@ -37,8 +37,9 @@ public abstract class JavoiceScreen {
         return label;
     }
 
-    public Label initLabelWithHAlignment(GridPane grid, String text, int columnIndex, int rowIndex, HPos hpos) {
+    public Label initLabelWithColumnSpanAndHAlignment(GridPane grid, String text, int columnIndex, int rowIndex, int columnSpan, HPos hpos) {
         Label label = initLabel(grid, text, columnIndex, rowIndex);
+        grid.setColumnSpan(label, columnSpan);
         grid.setHalignment(label, hpos);
         return label;
     }

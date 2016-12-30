@@ -24,7 +24,7 @@ public class NewInvoice extends JavoiceScreen implements Observable {
         TextField customerSearchField = initTextField(newInvoiceGrid, 1, "Search", 1, 11);
         Button customerSearchButton = initButton(newInvoiceGrid, "Search", event -> notifyObserver(UiController.invoiceDetailsStackPane), 2, 11);
 
-        Label or = initLabelWithHAlignment(newInvoiceGrid, "- OR -", 0, 13, HPos.CENTER);
+        Label or = initLabelWithColumnSpanAndHAlignment(newInvoiceGrid, "- OR -", 0, 13, 3, HPos.CENTER);
 
         Button addCustomer = initButtonWithColumnSpanAndHAlignment(newInvoiceGrid, "Add new customer", event -> notifyObserver(UiController.newCustomerStackPane), 0, 15, 3, HPos.CENTER);
 
