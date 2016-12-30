@@ -18,37 +18,19 @@ public class NewInvoice extends JavoiceScreen implements Observable {
 
     public void initialise() {
         GridPane newInvoiceGrid = new GridPane();
-        basicGridSetup(newInvoiceGrid, "New invoice");
+        basicGridSetup(newInvoiceGrid, "New invoice", 1);
 
-        Label customerSearchLabel = new Label("Search for existing customer:");
-        newInvoiceGrid.add(customerSearchLabel, 0, 11);
+        Label customerSearchLabel = initLabel(newInvoiceGrid, "Search for existing customer:", 0, 11);
+        TextField customerSearchField = initTextField(newInvoiceGrid, 1, "Search", 1, 11);
+        Button customerSearchButton = initButton(newInvoiceGrid, "Search", event -> notifyObserver(UiController.invoiceDetailsStackPane), 2, 11);
 
-        TextField customerSearch = new TextField();
-        newInvoiceGrid.add(customerSearch, 1, 11);
+        Label or = initLabelWithHAlignment(newInvoiceGrid, "- OR -", 0, 13, HPos.CENTER);
 
-        Button searchCustomerButton = new Button();
-        searchCustomerButton.setText("Search");
-        searchCustomerButton.setOnAction(event -> notifyObserver(UiController.invoiceDetailsStackPane));
-        newInvoiceGrid.add(searchCustomerButton, 2, 11);
+        Button addCustomer = initButtonWithColumnSpanAndHAlignment(newInvoiceGrid, "Add new customer", event -> notifyObserver(UiController.newCustomerStackPane), 0, 15, 3, HPos.CENTER);
 
-        Label orLabel = new Label("- OR -");
-        GridPane.setColumnSpan(orLabel, 3);
-        GridPane.setHalignment(orLabel, HPos.CENTER);
-        newInvoiceGrid.add(orLabel, 0, 13);
-
-        Button newCustomerButton = new Button();
-        newCustomerButton.setText("Add new customer");
-        GridPane.setColumnSpan(newCustomerButton, 3);
-        GridPane.setHalignment(newCustomerButton, HPos.CENTER);
-        newCustomerButton.setOnAction(event -> notifyObserver(UiController.newCustomerStackPane));
-        newInvoiceGrid.add(newCustomerButton, 0, 15);
+        Button mainMenu = initButton(newInvoiceGrid, "Main menu", event -> notifyObserver(UiController.mainMenuStackPane), 0, 26);
 
         newInvoiceStackPane = new StackPane(newInvoiceGrid);
-
-        Button mainFromInvoice = new Button();
-        mainFromInvoice.setText("Main menu");
-        mainFromInvoice.setOnAction(event -> notifyObserver(UiController.mainMenuStackPane));
-        newInvoiceGrid.add(mainFromInvoice, 0, 26);
         title.requestFocus();
     }
 

@@ -17,6 +17,10 @@ public class Settings extends JavoiceScreen implements Observable {
     private File fakeInvoiceOutputPathConfig = new File(String.format("%s/Javoice/Invoices", System.getProperty("user.home")));;
     private File fakeSalesLedgerOutputPathConfig = new File(String.format("%s/Javoice/Sales Ledger", System.getProperty("user.home")));;
     private File fakeCustomerDataOutputPathConfig = new File(String.format("%s/Javoice/Customer Data/Customers.xls", System.getProperty("user.home")));;
+    private Button updateInvoiceTemplatePath;
+    private Button updateInvoiceFileOutputPath;
+    private Button updateSalesLedgerOutputPath;
+    private Button updateCustomerLedgerOutputPath;
 
     public Settings() {
         initialise();
@@ -24,89 +28,57 @@ public class Settings extends JavoiceScreen implements Observable {
 
     public void initialise() {
         GridPane settingsGrid = new GridPane();
-        basicGridSetup(settingsGrid, "Settings");
+        basicGridSetup(settingsGrid, "Settings", 1);
 
-        Label invoiceFileTemplateLabel = new Label("Invoice template file:");
-        settingsGrid.add(invoiceFileTemplateLabel, 0, 2);
+        Label invoiceFileTemplateLabel = initLabel(settingsGrid, "Invoice template file:", 0, 2);
+        FileChooser invoiceTemplatePath = xlsFileChooser(fakeInvoiceTemplateConfig);
+        updateInvoiceTemplatePath = initButton(settingsGrid, fakeInvoiceTemplateConfig.toString(), event -> newFileChoice(invoiceTemplatePath, updateInvoiceTemplatePath), 1, 2);
 
-        FileChooser invoiceTemplatePath = new FileChooser();
-        File dataDirectory = new File(fakeInvoiceTemplateConfig.getParent());
-        invoiceTemplatePath.setInitialDirectory(dataDirectory);
-        invoiceTemplatePath.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel '97-2003 spreadsheet", "*.xls"));
-        Button updateInvoiceTemplatePath = new Button();
-        updateInvoiceTemplatePath.setText(fakeInvoiceTemplateConfig.toString());
-        updateInvoiceTemplatePath.setOnAction(event -> chooseInvoiceTemplatePath(invoiceTemplatePath, updateInvoiceTemplatePath));
-        settingsGrid.add(updateInvoiceTemplatePath, 1, 2);
-
-        Label invoiceFileOutputLabel = new Label("Invoice output folder:");
-        settingsGrid.add(invoiceFileOutputLabel, 0, 3);
-
-        DirectoryChooser invoiceFileOutputPath = new DirectoryChooser();
-        invoiceFileOutputPath.setInitialDirectory(fakeInvoiceOutputPathConfig);
+        Label invoiceFileOutputLabel = initLabel(settingsGrid, "Invoice output folder:", 0, 3);
+        DirectoryChooser invoiceFileOutputPath = directoryChooser(fakeInvoiceOutputPathConfig);
         File initialDirectory = invoiceFileOutputPath.getInitialDirectory();
-        Button updateInvoiceFileOutputPath = new Button();
-        updateInvoiceFileOutputPath.setText(initialDirectory.toString());
-        updateInvoiceFileOutputPath.setOnAction(event -> chooseInvoiceOutputPath(invoiceFileOutputPath, updateInvoiceFileOutputPath));
-        settingsGrid.add(updateInvoiceFileOutputPath, 1, 3);
+        updateInvoiceFileOutputPath = initButton(settingsGrid, initialDirectory.toString(), event -> newDirectoryChoice(invoiceFileOutputPath, updateInvoiceFileOutputPath), 1, 3);
 
-        Label salesLedgerOutputLabel = new Label("Sales ledger output folder:");
-        settingsGrid.add(salesLedgerOutputLabel, 0, 4);
-
-        DirectoryChooser salesLedgerOutputPath = new DirectoryChooser();
-        salesLedgerOutputPath.setInitialDirectory(fakeSalesLedgerOutputPathConfig);
+        Label salesLedgerOutputLabel = initLabel(settingsGrid, "Sales ledger output folder:", 0, 4);
+        DirectoryChooser salesLedgerOutputPath = directoryChooser(fakeSalesLedgerOutputPathConfig);
         File initialSalesLedgerDirectory = salesLedgerOutputPath.getInitialDirectory();
-        Button updateSalesLedgerOutputPath = new Button();
-        updateSalesLedgerOutputPath.setText(initialSalesLedgerDirectory.toString());
-        updateSalesLedgerOutputPath.setOnAction(event -> chooseSalesLedgerOutputPath(salesLedgerOutputPath, updateSalesLedgerOutputPath));
-        settingsGrid.add(updateSalesLedgerOutputPath, 1, 4);
+        updateSalesLedgerOutputPath = initButton(settingsGrid, initialSalesLedgerDirectory.toString(), event -> newDirectoryChoice(salesLedgerOutputPath, this.updateSalesLedgerOutputPath), 1, 4);
 
-        Label customerDataLabel = new Label("Customer data file:");
-        settingsGrid.add(customerDataLabel, 0, 5);
+        Label customerDataLabel = initLabel(settingsGrid, "Customer data file:", 0, 5);
+        FileChooser customerDataOutputPath = xlsFileChooser(fakeCustomerDataOutputPathConfig);
+        updateCustomerLedgerOutputPath = initButton(settingsGrid, fakeCustomerDataOutputPathConfig.toString(), event -> newFileChoice(customerDataOutputPath, updateCustomerLedgerOutputPath), 1, 5);
 
-        FileChooser customerDataOutputPath = new FileChooser();
-        File templateDirectory = new File(fakeCustomerDataOutputPathConfig.getParent());
-        customerDataOutputPath.setInitialDirectory(templateDirectory);
-        customerDataOutputPath.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel '97-2003 spreadsheet", "*.xls"));
-        Button updateCustomerLedgerOutputPath = new Button();
-        updateCustomerLedgerOutputPath.setText(fakeCustomerDataOutputPathConfig.toString());
-        updateCustomerLedgerOutputPath.setOnAction(event -> chooseCustomerDataOutputPath(customerDataOutputPath, updateCustomerLedgerOutputPath));
-        settingsGrid.add(updateCustomerLedgerOutputPath, 1, 5);
+        Button updateSettings = initButton(settingsGrid, "Update", event -> System.out.println("settings updated..."), 0, 7);
 
-        Button updateSettings = new Button();
-        updateSettings.setText("Update settings");
-        updateSettings.setOnAction(event -> System.out.println("settings updated..."));
-        settingsGrid.add(updateSettings, 0, 7);
-
-        Button mainFromSettings = new Button();
-        mainFromSettings.setText("Main menu");
-        mainFromSettings.setOnAction(event -> notifyObserver(UiController.mainMenuStackPane));
-        settingsGrid.add(mainFromSettings, 0, 9);
+        Button mainMenu = initButton(settingsGrid, "Main menu", event -> notifyObserver(UiController.mainMenuStackPane), 0, 9);
 
         settingsStackPane = new StackPane(settingsGrid);
     }
 
-    private void chooseInvoiceTemplatePath(FileChooser fileChooser, Button buttonToUpdate) {
-        fakeInvoiceTemplateConfig = fileChooser.showOpenDialog(UiController.fixedScene.getWindow());
-        fileChooser.setInitialDirectory(new File(fakeInvoiceTemplateConfig.getParent()));
-        buttonToUpdate.setText(fakeInvoiceTemplateConfig.toString());
+    private DirectoryChooser directoryChooser(File file) {
+        DirectoryChooser invoiceFileOutputPath = new DirectoryChooser();
+        invoiceFileOutputPath.setInitialDirectory(file);
+        return invoiceFileOutputPath;
     }
 
-    private void chooseInvoiceOutputPath(DirectoryChooser directoryChooser, Button buttonToUpdate) {
+    private FileChooser xlsFileChooser(File file) {
+        FileChooser invoiceTemplatePath = new FileChooser();
+        File dataDirectory = new File(file.getParent());
+        invoiceTemplatePath.setInitialDirectory(dataDirectory);
+        invoiceTemplatePath.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel '97-2003 spreadsheet", "*.xls"));
+        return invoiceTemplatePath;
+    }
+
+    private void newFileChoice(FileChooser fileChooser, Button buttonToUpdate) {
+        File fileConfig = fileChooser.showOpenDialog(UiController.fixedScene.getWindow());
+        fileChooser.setInitialDirectory(new File(fileConfig.getParent()));
+        buttonToUpdate.setText(fileConfig.toString());
+    }
+
+    private void newDirectoryChoice(DirectoryChooser directoryChooser, Button buttonToUpdate) {
         fakeInvoiceOutputPathConfig = directoryChooser.showDialog(UiController.fixedScene.getWindow());
         directoryChooser.setInitialDirectory(fakeInvoiceOutputPathConfig);
         buttonToUpdate.setText(fakeInvoiceOutputPathConfig.toString());
-    }
-
-    private void chooseSalesLedgerOutputPath(DirectoryChooser directoryChooser, Button buttonToUpdate) {
-        fakeSalesLedgerOutputPathConfig = directoryChooser.showDialog(UiController.fixedScene.getWindow());
-        directoryChooser.setInitialDirectory(fakeSalesLedgerOutputPathConfig);
-        buttonToUpdate.setText(fakeSalesLedgerOutputPathConfig.toString());
-    }
-
-    private void chooseCustomerDataOutputPath(FileChooser fileChooser, Button buttonToUpdate) {
-        fakeCustomerDataOutputPathConfig = fileChooser.showOpenDialog(UiController.fixedScene.getWindow());
-        fileChooser.setInitialDirectory(new File(fakeCustomerDataOutputPathConfig.getParent()));
-        buttonToUpdate.setText(fakeCustomerDataOutputPathConfig.toString());
     }
 
     @Override

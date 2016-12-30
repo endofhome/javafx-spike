@@ -1,15 +1,10 @@
 package sample;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 public class NewCustomer extends JavoiceScreen implements Observable {
 
@@ -22,7 +17,7 @@ public class NewCustomer extends JavoiceScreen implements Observable {
 
     private void initialise() {
         GridPane addCustomerGrid = new GridPane();
-        basicGridSetup(addCustomerGrid, "New customer");
+        basicGridSetup(addCustomerGrid, "New customer", 1);
 
         Label customerName = new Label("Name");
         addCustomerGrid.add(customerName, 0, 2);
@@ -54,21 +49,15 @@ public class NewCustomer extends JavoiceScreen implements Observable {
         TextField customerPhoneField = new TextField();
         addCustomerGrid.add(customerPhoneField, 1, 6);
 
-        Button mainFromCustomer = new Button();
-        mainFromCustomer.setText("Main menu");
-        mainFromCustomer.setOnAction(event -> notifyObserver(UiController.mainMenuStackPane));
-        addCustomerGrid.add(mainFromCustomer, 0, 7);
+        Button mainMenu = initButton(addCustomerGrid, "Main menu", event -> notifyObserver(UiController.mainMenuStackPane), 0, 7);
 
-        Button submitCustomerBtn = new Button();
-        submitCustomerBtn.setText("Add customer");
-        submitCustomerBtn.setOnAction(event -> printCustomerDetails(
+        Button addCustomer = initButton(addCustomerGrid, "Add customer", event -> printCustomerDetails(
                 customerNameField,
                 customerAddressOneField,
                 customerAddressTwoField,
                 customerPostcodeField,
                 customerPhoneField
-        ));
-        addCustomerGrid.add(submitCustomerBtn, 5, 7);
+        ), 5, 7);
 
         newCustomerStackPane = new StackPane(addCustomerGrid);
     }
