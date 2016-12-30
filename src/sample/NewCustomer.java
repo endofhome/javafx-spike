@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class NewCustomer implements Observable {
+public class NewCustomer extends JavoiceScreen implements Observable {
 
     public StackPane newCustomerStackPane;
     private Observer observer;
@@ -22,49 +22,42 @@ public class NewCustomer implements Observable {
 
     private void initialise() {
         GridPane addCustomerGrid = new GridPane();
-        addCustomerGrid.setAlignment(Pos.CENTER);
-        addCustomerGrid.setHgap(10);
-        addCustomerGrid.setVgap(10);
-        addCustomerGrid.setPadding(new Insets(25, 25, 25, 25));
-
-        Text customerSceneTitle = new Text("New customer");
-        customerSceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        addCustomerGrid.add(customerSceneTitle, 0, 0, 2, 1);
+        basicGridSetup(addCustomerGrid, "New customer");
 
         Label customerName = new Label("Name");
-        addCustomerGrid.add(customerName, 0, 1);
+        addCustomerGrid.add(customerName, 0, 2);
 
         TextField customerNameField = new TextField();
-        addCustomerGrid.add(customerNameField, 1, 1);
+        addCustomerGrid.add(customerNameField, 1, 2);
 
         Label customerAddressOne = new Label("Address (1)");
-        addCustomerGrid.add(customerAddressOne, 0, 2);
+        addCustomerGrid.add(customerAddressOne, 0, 3);
 
         TextField customerAddressOneField = new TextField();
-        addCustomerGrid.add(customerAddressOneField, 1, 2);
+        addCustomerGrid.add(customerAddressOneField, 1, 3);
 
         Label customerAddressTwo = new Label("Address (2)");
-        addCustomerGrid.add(customerAddressTwo, 0, 3);
+        addCustomerGrid.add(customerAddressTwo, 0, 4);
 
         TextField customerAddressTwoField = new TextField();
-        addCustomerGrid.add(customerAddressTwoField, 1, 3);
+        addCustomerGrid.add(customerAddressTwoField, 1, 4);
 
         Label customerPostcode = new Label("Postcode");
-        addCustomerGrid.add(customerPostcode, 0, 4);
+        addCustomerGrid.add(customerPostcode, 0, 5);
 
         TextField customerPostcodeField = new TextField();
-        addCustomerGrid.add(customerPostcodeField, 1, 4);
+        addCustomerGrid.add(customerPostcodeField, 1, 5);
 
         Label customerPhoneNum = new Label("Phone number:");
-        addCustomerGrid.add(customerPhoneNum, 0, 5);
+        addCustomerGrid.add(customerPhoneNum, 0, 6);
 
         TextField customerPhoneField = new TextField();
-        addCustomerGrid.add(customerPhoneField, 1, 5);
+        addCustomerGrid.add(customerPhoneField, 1, 6);
 
         Button mainFromCustomer = new Button();
         mainFromCustomer.setText("Main menu");
         mainFromCustomer.setOnAction(event -> notifyObserver(UiController.mainMenuStackPane));
-        addCustomerGrid.add(mainFromCustomer, 0, 6);
+        addCustomerGrid.add(mainFromCustomer, 0, 7);
 
         Button submitCustomerBtn = new Button();
         submitCustomerBtn.setText("Add customer");
@@ -75,7 +68,7 @@ public class NewCustomer implements Observable {
                 customerPostcodeField,
                 customerPhoneField
         ));
-        addCustomerGrid.add(submitCustomerBtn, 5, 6);
+        addCustomerGrid.add(submitCustomerBtn, 5, 7);
 
         newCustomerStackPane = new StackPane(addCustomerGrid);
     }

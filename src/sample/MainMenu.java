@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import static sample.Main.BLACKBOARD;
 import static sample.Main.OXBLOOD;
 
-public class MainMenu implements Observable {
+public class MainMenu extends JavoiceScreen implements Observable {
     public StackPane mainMenuStackPane;
     private Observer observer;
 
@@ -25,20 +25,12 @@ public class MainMenu implements Observable {
 
     private void initialise() {
         GridPane mainMenuGrid = new GridPane();
-        mainMenuGrid.setAlignment(Pos.CENTER);
-        mainMenuGrid.setHgap(10);
-        mainMenuGrid.setVgap(10);
-        mainMenuGrid.setPadding(new Insets(25, 25, 25, 25));
+        basicGridSetup(mainMenuGrid, "Main menu");
 
         Text bannerTitle = new Text("J A V O I C E");
         bannerTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         bannerTitle.setFill(OXBLOOD);
         mainMenuGrid.add(bannerTitle, 0, 0, 2, 1);
-
-        Text mainMenuTitle = new Text("Main menu");
-        mainMenuTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        mainMenuTitle.setFill(BLACKBOARD);
-        mainMenuGrid.add(mainMenuTitle, 0, 5, 2, 1);
 
         Button mainNewInvoice = new Button();
         mainNewInvoice.setText("New invoice");
@@ -46,7 +38,7 @@ public class MainMenu implements Observable {
         mainNewInvoice.setMinWidth(200);
         mainNewInvoice.setStyle("-fx-focus-color: transparent;");
         mainNewInvoice.setOnAction(event -> notifyObserver(UiController.newInvoiceStackPane));
-        mainMenuGrid.add(mainNewInvoice, 0, 6);
+        mainMenuGrid.add(mainNewInvoice, 0, 7);
 
         Button mainNewCustomer = new Button();
         mainNewCustomer.setText("New customer");
@@ -54,7 +46,7 @@ public class MainMenu implements Observable {
         mainNewCustomer.setMinWidth(200);
         mainNewCustomer.setStyle("-fx-focus-color: transparent;");
         mainNewCustomer.setOnAction(event -> notifyObserver(UiController.newCustomerStackPane));
-        mainMenuGrid.add(mainNewCustomer, 0, 7);
+        mainMenuGrid.add(mainNewCustomer, 0, 8);
 
         Button mainSettings = new Button();
         mainSettings.setText("Settings");
@@ -62,11 +54,11 @@ public class MainMenu implements Observable {
         mainSettings.setMinWidth(200);
         mainSettings.setStyle("-fx-focus-color: transparent;");
         mainSettings.setOnAction(event -> notifyObserver(UiController.settingsStackPane));
-        mainMenuGrid.add(mainSettings, 0, 8);
+        mainMenuGrid.add(mainSettings, 0, 9);
 
         Label copyright = new Label(String.format("© %s  Tom Barnes", copyrightYears()));
         copyright.setTextFill(OXBLOOD);
-        mainMenuGrid.add(copyright, 0, 15);
+        mainMenuGrid.add(copyright, 0, 16);
 
         mainMenuStackPane = new StackPane(mainMenuGrid);
         mainMenuStackPane.getStylesheets().add("sample/javoice.css");
