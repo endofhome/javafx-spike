@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static sample.UiController.mainMenuStackPane;
+
 public class InvoiceDetails extends JavoiceScreen implements Observable {
 
     private Observer observer;
@@ -86,7 +88,7 @@ public class InvoiceDetails extends JavoiceScreen implements Observable {
             invoiceDetailsGrid.add(totalList.get(i), 5, 14 + i);
         }
 
-        Button mainMenu = initButton(invoiceDetailsGrid, "Main menu", event -> notifyObserver(UiController.mainMenuStackPane), 0, 31);
+        Button mainMenu = initButton(invoiceDetailsGrid, "Main menu", event -> notifyObserver(mainMenuStackPane), 0, 31);
 
         Button submitInvoice = initButton(invoiceDetailsGrid, "Submit", event -> System.out.println("INVOICE SUBMITTED!"), 2, 31);
 

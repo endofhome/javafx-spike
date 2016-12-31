@@ -11,6 +11,9 @@ import javafx.scene.text.Text;
 import java.time.LocalDate;
 
 import static sample.Main.OXBLOOD;
+import static sample.UiController.newCustomerStackPane;
+import static sample.UiController.newInvoiceStackPane;
+import static sample.UiController.settingsStackPane;
 
 public class MainMenu extends JavoiceScreen implements Observable {
     public StackPane mainMenuStackPane;
@@ -29,11 +32,11 @@ public class MainMenu extends JavoiceScreen implements Observable {
         bannerTitle.setFill(OXBLOOD);
         mainMenuGrid.add(bannerTitle, 0, 0, 2, 1);
 
-        Button invoice = initButtonWithMinWidth(mainMenuGrid, "New invoice", event -> notifyObserver(UiController.newInvoiceStackPane), 0, 7, 200);
+        Button invoice = initButtonWithMinWidth(mainMenuGrid, "New invoice", event -> notifyObserver(newInvoiceStackPane), 0, 7, 200);
 
-        Button customer = initButtonWithMinWidth(mainMenuGrid, "New customer", event -> notifyObserver(UiController.newCustomerStackPane), 0, 8, 200);
+        Button customer = initButtonWithMinWidth(mainMenuGrid, "New customer", event -> notifyObserver(newCustomerStackPane), 0, 8, 200);
 
-        Button settings = initButtonWithMinWidth(mainMenuGrid, "Settings", event -> notifyObserver(UiController.settingsStackPane), 0, 9, 200);
+        Button settings = initButtonWithMinWidth(mainMenuGrid, "Settings", event -> notifyObserver(settingsStackPane), 0, 9, 200);
 
         Label copyright = new Label(String.format("© %s  Tom Barnes", copyrightYears()));
         copyright.setTextFill(OXBLOOD);

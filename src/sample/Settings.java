@@ -9,6 +9,8 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 
+import static sample.UiController.mainMenuStackPane;
+
 public class Settings extends JavoiceScreen implements Observable {
 
     private Observer observer;
@@ -50,7 +52,7 @@ public class Settings extends JavoiceScreen implements Observable {
 
         Button updateSettings = initButton(settingsGrid, "Update", event -> System.out.println("settings updated..."), 0, 7);
 
-        Button mainMenu = initButton(settingsGrid, "Main menu", event -> notifyObserver(UiController.mainMenuStackPane), 0, 9);
+        Button mainMenu = initButton(settingsGrid, "Main menu", event -> notifyObserver(mainMenuStackPane), 0, 9);
 
         settingsStackPane = new StackPane(settingsGrid);
     }

@@ -6,6 +6,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+import static sample.UiController.mainMenuStackPane;
+
 public class NewCustomer extends JavoiceScreen implements Observable {
 
     public StackPane newCustomerStackPane;
@@ -49,7 +51,7 @@ public class NewCustomer extends JavoiceScreen implements Observable {
         TextField customerPhoneField = new TextField();
         addCustomerGrid.add(customerPhoneField, 1, 6);
 
-        Button mainMenu = initButton(addCustomerGrid, "Main menu", event -> notifyObserver(UiController.mainMenuStackPane), 0, 7);
+        Button mainMenu = initButton(addCustomerGrid, "Main menu", event -> notifyObserver(mainMenuStackPane), 0, 7);
 
         Button addCustomer = initButton(addCustomerGrid, "Add customer", event -> printCustomerDetails(
                 customerNameField,

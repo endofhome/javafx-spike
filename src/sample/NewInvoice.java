@@ -7,6 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+import static sample.UiController.invoiceDetailsStackPane;
+import static sample.UiController.mainMenuStackPane;
+import static sample.UiController.newCustomerStackPane;
+
 public class NewInvoice extends JavoiceScreen implements Observable {
 
     public StackPane newInvoiceStackPane;
@@ -22,13 +26,13 @@ public class NewInvoice extends JavoiceScreen implements Observable {
 
         Label customerSearchLabel = initLabel(newInvoiceGrid, "Search for existing customer:", 0, 11);
         TextField customerSearchField = initTextField(newInvoiceGrid, 1, "Search", 1, 11);
-        Button customerSearchButton = initButton(newInvoiceGrid, "Search", event -> notifyObserver(UiController.invoiceDetailsStackPane), 2, 11);
+        Button customerSearchButton = initButton(newInvoiceGrid, "Search", event -> notifyObserver(invoiceDetailsStackPane), 2, 11);
 
         Label or = initLabelWithColumnSpanAndHAlignment(newInvoiceGrid, "- OR -", 0, 13, 3, HPos.CENTER);
 
-        Button addCustomer = initButtonWithColumnSpanAndHAlignment(newInvoiceGrid, "Add new customer", event -> notifyObserver(UiController.newCustomerStackPane), 0, 15, 3, HPos.CENTER);
+        Button addCustomer = initButtonWithColumnSpanAndHAlignment(newInvoiceGrid, "Add new customer", event -> notifyObserver(newCustomerStackPane), 0, 15, 3, HPos.CENTER);
 
-        Button mainMenu = initButton(newInvoiceGrid, "Main menu", event -> notifyObserver(UiController.mainMenuStackPane), 0, 26);
+        Button mainMenu = initButton(newInvoiceGrid, "Main menu", event -> notifyObserver(mainMenuStackPane), 0, 26);
 
         newInvoiceStackPane = new StackPane(newInvoiceGrid);
     }
