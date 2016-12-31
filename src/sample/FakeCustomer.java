@@ -1,12 +1,12 @@
 package sample;
 
 public class FakeCustomer {
-    public final String accountCode;
+    final String accountCode;
     public final String name;
-    public final String addressOne;
-    public final String addressTwo;
-    public final String phoneNumber;
-    public final String postcode;
+    final String addressOne;
+    final String addressTwo;
+    final String phoneNumber;
+    final String postcode;
 
     public FakeCustomer() {
         accountCode = "50";

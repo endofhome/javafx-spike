@@ -13,14 +13,14 @@ import static sample.UiController.newCustomerStackPane;
 
 public class NewInvoice extends JavoiceScreen implements Observable {
 
-    public StackPane newInvoiceStackPane;
+    StackPane newInvoiceStackPane;
     private Observer observer;
 
     public NewInvoice() {
         initialise();
     }
 
-    public void initialise() {
+    private void initialise() {
         GridPane newInvoiceGrid = new GridPane();
         basicGridSetup(newInvoiceGrid, "New invoice", 1);
 

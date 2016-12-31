@@ -10,7 +10,7 @@ import static sample.UiController.mainMenuStackPane;
 
 public class NewCustomer extends JavoiceScreen implements Observable {
 
-    public StackPane newCustomerStackPane;
+    StackPane newCustomerStackPane;
     private Observer observer;
 
     public NewCustomer() {

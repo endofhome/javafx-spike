@@ -14,7 +14,7 @@ import static sample.UiController.mainMenuStackPane;
 public class Settings extends JavoiceScreen implements Observable {
 
     private Observer observer;
-    public StackPane settingsStackPane;
+    StackPane settingsStackPane;
     private File fakeInvoiceTemplateConfig = new File(String.format("%s/Javoice/Templates/invoice-template.xls", System.getProperty("user.home")));;
     private File fakeInvoiceOutputPathConfig = new File(String.format("%s/Javoice/Invoices", System.getProperty("user.home")));;
     private File fakeSalesLedgerOutputPathConfig = new File(String.format("%s/Javoice/Sales Ledger", System.getProperty("user.home")));;
@@ -28,7 +28,7 @@ public class Settings extends JavoiceScreen implements Observable {
         initialise();
     }
 
-    public void initialise() {
+    private void initialise() {
         GridPane settingsGrid = new GridPane();
         basicGridSetup(settingsGrid, "Settings", 1);
 

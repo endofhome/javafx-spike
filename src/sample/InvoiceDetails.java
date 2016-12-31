@@ -17,14 +17,14 @@ import static sample.UiController.mainMenuStackPane;
 public class InvoiceDetails extends JavoiceScreen implements Observable {
 
     private Observer observer;
-    public StackPane invoiceDetailsStackPane;
+    StackPane invoiceDetailsStackPane;
     private String fakeOrderNumber = "1053";
 
     public InvoiceDetails() {
         initialise();
     }
 
-    public void initialise() {
+    private void initialise() {
         // Fake customer for testing purposes...
         FakeCustomer fakeCustomer = new FakeCustomer();
 

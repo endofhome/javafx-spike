@@ -7,12 +7,12 @@ import javafx.stage.Stage;
 
 public class UiController implements Observer {
 
-    public static Scene fixedScene;
-    public static StackPane mainMenuStackPane;
-    public static StackPane newInvoiceStackPane;
-    public static StackPane invoiceDetailsStackPane;
-    public static StackPane newCustomerStackPane;
-    public static StackPane settingsStackPane;
+    static Scene fixedScene;
+    static StackPane mainMenuStackPane;
+    static StackPane newInvoiceStackPane;
+    static StackPane invoiceDetailsStackPane;
+    static StackPane newCustomerStackPane;
+    static StackPane settingsStackPane;
 
     public UiController() {
         initialise();
@@ -40,7 +40,7 @@ public class UiController implements Observer {
         settingsStackPane = settings.settingsStackPane;
     }
 
-    public void setTheStage(Stage primaryStage) {
+    void setTheStage(Stage primaryStage) {
         fixedScene = new Scene(mainMenuStackPane);
         mainMenuStackPane.requestFocus();
         primaryStage.setTitle("Javoice");

@@ -19,7 +19,7 @@ public abstract class JavoiceScreen {
 
     public Text title;
 
-    public void basicGridSetup(GridPane gridPane, String screenTitle, int rowIndexForTitle) {
+    void basicGridSetup(GridPane gridPane, String screenTitle, int rowIndexForTitle) {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -31,20 +31,20 @@ public abstract class JavoiceScreen {
         gridPane.add(title, 0, 1, 2, rowIndexForTitle);
     }
 
-    public Label initLabel(GridPane grid, String text, int columnIndex, int rowIndex) {
+    Label initLabel(GridPane grid, String text, int columnIndex, int rowIndex) {
         Label label = new Label(text);
         grid.add(label, columnIndex, rowIndex);
         return label;
     }
 
-    public Label initLabelWithColumnSpanAndHAlignment(GridPane grid, String text, int columnIndex, int rowIndex, int columnSpan, HPos hpos) {
+    Label initLabelWithColumnSpanAndHAlignment(GridPane grid, String text, int columnIndex, int rowIndex, int columnSpan, HPos hpos) {
         Label label = initLabel(grid, text, columnIndex, rowIndex);
         grid.setColumnSpan(label, columnSpan);
         grid.setHalignment(label, hpos);
         return label;
     }
 
-    public TextField initTextField(GridPane grid, int columnSpan, String labelText, int columnIndex, int rowIndex) {
+    TextField initTextField(GridPane grid, int columnSpan, String labelText, int columnIndex, int rowIndex) {
         TextField textField = new TextField();
         GridPane.setColumnSpan(textField, columnSpan);
         textField.setText(labelText);
@@ -52,26 +52,26 @@ public abstract class JavoiceScreen {
         return textField;
     }
 
-    public Button initExistingButton(Button button, GridPane grid, String buttonText, EventHandler<ActionEvent> actionEventEventHandler, int columnIndex, int rowIndex) {
+    private Button initExistingButton(Button button, GridPane grid, String buttonText, EventHandler<ActionEvent> actionEventEventHandler, int columnIndex, int rowIndex) {
         button.setText(buttonText);
         button.setOnAction(actionEventEventHandler);
         grid.add(button, columnIndex, rowIndex);
         return button;
     }
 
-    public Button initButton(GridPane grid, String buttonText, EventHandler<ActionEvent> actionEventEventHandler, int columnIndex, int rowIndex) {
+    Button initButton(GridPane grid, String buttonText, EventHandler<ActionEvent> actionEventEventHandler, int columnIndex, int rowIndex) {
         Button button = new Button();
         initExistingButton(button, grid, buttonText, actionEventEventHandler, columnIndex, rowIndex);
         return button;
     }
 
-    public Button initButtonWithMinWidth(GridPane grid, String buttonText, EventHandler<ActionEvent> actionEventEventHandler, int columnIndex, int rowIndex, int minWidth) {
+    Button initButtonWithMinWidth(GridPane grid, String buttonText, EventHandler<ActionEvent> actionEventEventHandler, int columnIndex, int rowIndex, int minWidth) {
         Button button = initButton(grid, buttonText, actionEventEventHandler, columnIndex, rowIndex);
         button.setMinWidth(minWidth);
         return button;
     }
 
-    public Button initButtonWithColumnSpanAndHAlignment(GridPane grid, String buttonText, EventHandler<ActionEvent> actionEventEventHandler, int columnIndex, int rowIndex, int columnSpan, HPos hpos) {
+    Button initButtonWithColumnSpanAndHAlignment(GridPane grid, String buttonText, EventHandler<ActionEvent> actionEventEventHandler, int columnIndex, int rowIndex, int columnSpan, HPos hpos) {
         Button button = initButton(grid, buttonText, actionEventEventHandler, columnIndex, rowIndex);
         grid.setColumnSpan(button, columnSpan);
         grid.setHalignment(button, hpos);
