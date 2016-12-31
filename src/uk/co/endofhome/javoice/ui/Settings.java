@@ -73,14 +73,18 @@ public class Settings extends JavoiceScreen implements Observable {
 
     private void newFileChoice(FileChooser fileChooser, Button buttonToUpdate) {
         File fileConfig = fileChooser.showOpenDialog(UiController.fixedScene.getWindow());
-        fileChooser.setInitialDirectory(new File(fileConfig.getParent()));
-        buttonToUpdate.setText(fileConfig.toString());
+        if (fileConfig != null) {
+            fileChooser.setInitialDirectory(new File(fileConfig.getParent()));
+            buttonToUpdate.setText(fileConfig.toString());
+        }
     }
 
     private void newDirectoryChoice(DirectoryChooser directoryChooser, Button buttonToUpdate) {
         fakeInvoiceOutputPathConfig = directoryChooser.showDialog(UiController.fixedScene.getWindow());
-        directoryChooser.setInitialDirectory(fakeInvoiceOutputPathConfig);
-        buttonToUpdate.setText(fakeInvoiceOutputPathConfig.toString());
+        if (fakeInvoiceOutputPathConfig != null) {
+            directoryChooser.setInitialDirectory(fakeInvoiceOutputPathConfig);
+            buttonToUpdate.setText(fakeInvoiceOutputPathConfig.toString());
+        }
     }
 
     @Override
