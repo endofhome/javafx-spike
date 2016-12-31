@@ -1,4 +1,4 @@
-package sample;
+package uk.co.endofhome.javoice.ui;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static sample.UiController.mainMenuStackPane;
+import static uk.co.endofhome.javoice.ui.UiController.mainMenuStackPane;
 
 public class InvoiceDetails extends JavoiceScreen implements Observable {
 

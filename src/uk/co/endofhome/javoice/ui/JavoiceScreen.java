@@ -1,4 +1,4 @@
-package sample;
+package uk.co.endofhome.javoice.ui;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,15 +9,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-import static sample.Main.BLACKBOARD;
-
 public abstract class JavoiceScreen {
 
     public Text title;
+    static final Color BLACKBOARD = Color.valueOf("565656");
+    static final Color OXBLOOD = Color.valueOf("76323F");
 
     void basicGridSetup(GridPane gridPane, String screenTitle, int rowIndexForTitle) {
         gridPane.setAlignment(Pos.CENTER);

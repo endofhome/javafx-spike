@@ -1,12 +1,10 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import uk.co.endofhome.javoice.ui.UiController;
 
 public class Main extends Application {
-    static final Color OXBLOOD = Color.valueOf("76323F");
-    static final Color BLACKBOARD = Color.valueOf("565656");
 
     @Override
     public void start(Stage primaryStage) {

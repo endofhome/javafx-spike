@@ -1,9 +1,15 @@
-package sample;
+package uk.co.endofhome.javoice.ui;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import uk.co.endofhome.javoice.ui.InvoiceDetails;
+import uk.co.endofhome.javoice.ui.MainMenu;
+import uk.co.endofhome.javoice.ui.NewCustomer;
+import uk.co.endofhome.javoice.ui.NewInvoice;
+import uk.co.endofhome.javoice.ui.Observer;
+import uk.co.endofhome.javoice.ui.Settings;
 
 public class UiController implements Observer {
 
@@ -40,7 +46,7 @@ public class UiController implements Observer {
         settingsStackPane = settings.settingsStackPane;
     }
 
-    void setTheStage(Stage primaryStage) {
+    public void setTheStage(Stage primaryStage) {
         fixedScene = new Scene(mainMenuStackPane);
         mainMenuStackPane.requestFocus();
         primaryStage.setTitle("Javoice");

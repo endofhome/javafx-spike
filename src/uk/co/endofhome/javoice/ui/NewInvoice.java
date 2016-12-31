@@ -1,4 +1,4 @@
-package sample;
+package uk.co.endofhome.javoice.ui;
 
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
@@ -7,9 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
-import static sample.UiController.invoiceDetailsStackPane;
-import static sample.UiController.mainMenuStackPane;
-import static sample.UiController.newCustomerStackPane;
+import static uk.co.endofhome.javoice.ui.UiController.invoiceDetailsStackPane;
+import static uk.co.endofhome.javoice.ui.UiController.mainMenuStackPane;
+import static uk.co.endofhome.javoice.ui.UiController.newCustomerStackPane;
 
 public class NewInvoice extends JavoiceScreen implements Observable {
 

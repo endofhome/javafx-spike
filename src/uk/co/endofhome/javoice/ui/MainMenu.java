@@ -1,19 +1,19 @@
-package sample;
+package uk.co.endofhome.javoice.ui;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.time.LocalDate;
 
-import static sample.Main.OXBLOOD;
-import static sample.UiController.newCustomerStackPane;
-import static sample.UiController.newInvoiceStackPane;
-import static sample.UiController.settingsStackPane;
+import static uk.co.endofhome.javoice.ui.UiController.newCustomerStackPane;
+import static uk.co.endofhome.javoice.ui.UiController.newInvoiceStackPane;
+import static uk.co.endofhome.javoice.ui.UiController.settingsStackPane;
 
 public class MainMenu extends JavoiceScreen implements Observable {
     public StackPane mainMenuStackPane;

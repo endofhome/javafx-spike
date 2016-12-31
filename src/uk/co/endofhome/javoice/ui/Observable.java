@@ -1,4 +1,4 @@
-package sample;
+package uk.co.endofhome.javoice.ui;
 
 import javafx.scene.layout.StackPane;
 

@@ -1,4 +1,4 @@
-package sample;
+package uk.co.endofhome.javoice.ui;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,7 +9,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 
-import static sample.UiController.mainMenuStackPane;
+import static uk.co.endofhome.javoice.ui.UiController.mainMenuStackPane;
 
 public class Settings extends JavoiceScreen implements Observable {
 
